@@ -1,32 +1,35 @@
+import inserirPalavras from "./inserir_palavras.js"
+import selecionarLetras from "./selecionar_letras.js"
+
 // tamanho do quadro
-let altura = 15
-let comprimento = 15
-let quant_palavras = 10
+export let altura = 15
+export let comprimento = 15
+export let quant_palavras = 10
 
 // essa variavel é modificada pelo "modais.js" o qual manda o valor 
-let tipo_lista = "default"
+export let tipo_lista = "default"
 
 // vetor com as palavras que o usuário inseriu para gerar o quadro
-const palavras_custom = []
+export const palavras_custom = []
 
 // vetor com as palavras que vão pro quadro
-const palavras = []
+export const palavras = []
 
 // vetor com as palavras que foram de fato inseridas (pode ser que alguma palavra não encaxe no quadro, então vai ficar fora deste vetor)
-const palavras_inseridas = []
+export const palavras_inseridas = []
 
-// vetor com as palavras que não foi possivel inserir no quadro
-const palavras_nao_usadas = []
+// vetor com as palavras que não foram inseridas no quadro por falta de espaço
+export const palavras_nao_usadas = []
 
 // vetor com as palavras encontradas (usado pra saber se tudo foi achado e dar alert)
-const palavras_encontradas = []
+export const palavras_encontradas = []
 
 // vetores do quadro (que será impresso no HTML) e quadro_usado (usado como referencia para inserir palavras no quadro e selecioná-las depois)
-const quadro = Array.apply(null, Array(altura)).map(function () {}) // definindo o vetor com valores nulos
-const quadro_usado = Array.apply(null, Array(altura)).map(function () {})
+export const quadro = Array.apply(null, Array(altura)).map(function () {}) // definindo o vetor com valores nulos
+export const quadro_usado = Array.apply(null, Array(altura)).map(function () {})
 
 // vetor com as palavras a serem inseridas
-const animais = [
+export const animais = [
     "ABELHA","AVESTRUZ","ARANHA","ARRAIA",
     "BALEIA","BESOURO","BURRO","BODE",
     "CAVALO","CASTOR","CORVO","CIGARRA","CACHORRO",
@@ -49,7 +52,8 @@ const animais = [
     "ZEBRA"
 ]
 
-function gerarCacaPalavra(){
+
+export function gerarCacaPalavra(){
     palavras_inseridas.length = 0
     palavras_nao_usadas.length = 0
     palavras_encontradas.length = 0
@@ -166,7 +170,7 @@ function gerarCacaPalavra(){
     
     
     /* Inserindo as palavras no quadro*/
-    inserirPalavras() // inserir_palavras.js
+    inserirPalavras() // importado do inserir_palavras.js
 
     /* imprimindo o quadro no HTML e no console */
 
@@ -205,5 +209,21 @@ function gerarCacaPalavra(){
     document.querySelector(".palavras h2").innerHTML = "Faltam: "+palavras_inseridas.length
 
     /* seleção das palavras e checagem se esta correta */
-    selecionarLetras() // selecionar_letras.js
+    selecionarLetras() // importado do selecionar_letras.js
+}
+
+export function setAltura(valor){
+    altura = valor
+}
+
+export function setComrpimento(valor){
+    comprimento = valor
+}
+
+export function setQntPalavras(valor){
+    quant_palavras = valor
+}
+
+export function setTipoLista(valor){
+    tipo_lista = valor
 }

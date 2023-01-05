@@ -16,7 +16,7 @@
             <img src="IMGS/settings_icon.png" class="img_config_icon">
             <span class="desc_quadro">Quadro 15x15, 10 palavras, lista: default</span>
         </div>
-        <button class="btn-criar-quadro" onclick="gerarCacaPalavra()"> Gerar Quadro </button>
+        <button class="btn-criar-quadro"> Gerar Quadro </button>
     </header>
 
     <main>
@@ -39,7 +39,7 @@
         <p class="modal_alert_txt"></p>
     </div>
 
-    
+    <!-- caixa modal das configurações -->
     <div class="fundo_modal_config">
         <div id="modal_config">
             <header>
@@ -86,12 +86,17 @@
         </div>
     </div>
 </body>
-<script src="JS/gerar_quadro.js"></script>
-<script src="JS/inserir_palavras.js"></script>
-<script src="JS/selecionar_letras.js"></script>
-<script src="JS/modais.js"></script>
-<script>
-    gerarCacaPalavra()
+<script type="module" src="JS/gerar_quadro.js"></script>
+<script type="module" src="JS/inserir_palavras.js"></script>
+<script type="module" src="JS/selecionar_letras.js"></script>
+<script type="module" src="JS/modais.js"></script>
+<script type="module">
+    import * as globais from "/JS/Gerar_quadro.js"
+
+    let botao = document.querySelector(".btn-criar-quadro")
+    botao.addEventListener("click", function(){
+        globais.gerarCacaPalavra()
+    })
 </script>
 
 </html>

@@ -1,4 +1,7 @@
-function selecionarLetras(){
+import * as exp from "./Gerar_quadro.js" ;
+import callModal from "./modais.js";
+
+export default function selecionarLetras(){
     const letras_selecionadas = []
     let selecionando = false
 
@@ -96,7 +99,7 @@ function selecionarLetras(){
 
             palavra_selecionada = palavra_selecionada+letra // monta a palavra juntando as letras
 
-            if(!(letra == quadro_usado[letra_y][letra_x])){
+            if(!(letra == exp.quadro_usado[letra_y][letra_x])){
                 // confere se a letra selecionada bate com a letra que está no quadro_usado. 
                 // como a seleção de letras é livre, o usuário não é obrigado a selecionar letras em linha reta, portanto, ele pode montar a palavra usando qualquer letra que forme a palavra
                 // para evitar isso, comparamos a letra selecionada com a que está presente no quadro_usado, pois nesta matriz só existem as palavras que foram inseridas, logo, quando o usuario seleciona uma letra errada (mesmo fazendo sentido) no quadro, no quadro_usado essa letra será um valor "null"
@@ -105,7 +108,7 @@ function selecionarLetras(){
         }
 
         // se a palavra selecionada existir no vetor "palavras" e as letras estiverem corretas
-        if(palavras.includes(palavra_selecionada) && checagem_letra == true){
+        if(exp.palavras.includes(palavra_selecionada) && checagem_letra == true){
             return [true, palavra_selecionada]
         } else {
             return [false, palavra_selecionada]
@@ -114,7 +117,7 @@ function selecionarLetras(){
 
 
     let total_encontradas = 0 // total de palavras encontradas
-    let falta_encontrar = palavras_inseridas.length
+    let falta_encontrar = exp.palavras_inseridas.length
 
     // função que marca no quadro a palavra encontrada e tambem marca ela na lista de palavras
     function marcarAcerto(palavra){
@@ -136,17 +139,17 @@ function selecionarLetras(){
         })
 
         // confere se a palavra que o usuário selecionou já não foi encontrada antes
-        if(!(palavras_encontradas.includes(palavra))){
-            palavras_encontradas.push(palavra)
+        if(!(exp.palavras_encontradas.includes(palavra))){
+            exp.palavras_encontradas.push(palavra)
             total_encontradas++
             falta_encontrar--
             document.querySelector(".palavras h2").innerHTML = "Faltam: "+falta_encontrar
         }
         
-        if(total_encontradas == palavras_inseridas.length){
+        if(total_encontradas == exp.palavras_inseridas.length){
             callModal("Parabens, encontrou tudo","lightgreen",2000)
         }
         
-        console.log(total_encontradas+"/"+palavras_inseridas.length)
+        //console.log(total_encontradas+"/"+exp.palavras_inseridas.length)
     }
 }

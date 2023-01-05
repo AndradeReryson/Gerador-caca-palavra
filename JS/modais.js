@@ -1,3 +1,4 @@
+import * as exp from "./Gerar_quadro.js" ;
 // script das caixas modais que vão ser mostradas na tela
 
 // icone de configuração, texto descritivo e botão de fechar
@@ -33,7 +34,7 @@ btn_close_config.addEventListener("click", function(){
 
 
 /* animação, cor e texto da caixa modal de alerta*/
-async function callModal(texto, cor, screen_time){
+export default async function callModal(texto, cor, screen_time){
     $('.modal_alert_txt').text(texto)
     $('.modal_alert_txt').css({"backgroundColor": cor})
 
@@ -57,7 +58,7 @@ async function callModal(texto, cor, screen_time){
 
 
 
-/* ocultando/mostrando a text area de palavras customizadas */
+/* ocultando/mostrando a text area de palavras customizadas dentro do modal config */
 let caixa_radio = document.querySelector(".box-radio-input")
 $(".box-textarea").hide();
 
@@ -98,7 +99,7 @@ function salvarConfiguracao(){
     }
 
     // limpando o vetor de palavras customizadas, se não o usuario insere os valores varias vezes apertando o botão mais de uma vez
-    palavras_custom.length = 0
+    exp.palavras_custom.length = 0
 
     // montando e enviando um vetor com as palavras que o usuario inseriu, caso ele escolha essa opção
     // confere se tem alguma letra na textarea. Também vai server pra saber se o usuário selecionou a opção de lista customizada
@@ -120,27 +121,28 @@ function salvarConfiguracao(){
             return;
         }
 
+        // caso contrario, vamos jogar as palavras no vetor
         for(let a = 0; a < custom_temp.length; a++){
-            palavras_custom.push(custom_temp[a])
+            exp.palavras_custom.push(custom_temp[a])
         }
 
         
     } else {
-        // confere se o usuário escolheu no minimo 5 palavras
-        if(parseInt(form_qnt_palavras.value) > animais.length){
-            callModal("A quantidade máxima de palavras é "+animais.length, "#ff7676",3000)
+        // confere se a quantidade de palavras selecionada pelo usuario não ultrapassa o tamanho do vetor de palavras padrão (animais)
+        if(parseInt(form_qnt_palavras.value) > exp.animais.length){
+            callModal("A quantidade máxima de palavras é "+exp.animais.length, "#ff7676",3000)
             return;
         }
     }
     
     // muda os valores das variaveis altura, comprimento, quantidade de palavras e tipo de lista no arquivo "gerar_quadro.js"
-    altura = parseInt(form_altura.value)
-    comprimento = parseInt(form_comprimento.value)
-    quant_palavras = parseInt(form_qnt_palavras.value)
+    exp.setAltura(parseInt(form_altura.value))
+    exp.setComrpimento(parseInt(form_comprimento.value))
+    exp.setQntPalavras(parseInt(form_qnt_palavras.value))
 
     
     let form_lista_palavras = document.querySelector('input[name="lista_palavra"]:checked').value
-    tipo_lista = form_lista_palavras
+    exp.setTipoLista(form_lista_palavras)
 
     
     callModal("Configuração Salva","lightgreen",2000)

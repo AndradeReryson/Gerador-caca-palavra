@@ -113,6 +113,7 @@ main{
 }
 
 p.qnt_nao_utilizadas{
+    font-size: 1vw;
     position: absolute;
     top: 10%;
     left: 1vw;
