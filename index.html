@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="IMGS/favicon.png" type="image/x-icon">
+    <link rel="stylesheet" href="CSS/style.css">
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+    <title> Caça Palavra</title>
+</head>
+<body>
+    <header>
+        <h1> Gerador de Caça-Palavra </h1>
+        <div class="header_config_quadro">
+            <img src="IMGS/settings_icon.png" class="img_config_icon">
+            <span class="desc_quadro">Quadro 15x15, 10 palavras, lista: default</span>
+        </div>
+        <button class="btn-criar-quadro" onclick="gerarCacaPalavra()"> Gerar Quadro </button>
+    </header>
+
+    <main>
+        <div class="caixa">
+            <table class="quadro">
+            </table>
+        </div>
+
+        <div class="palavras">
+            <h2></h2>
+            <ul class="lista_palavras">
+            </ul>
+        </div>
+    </main>
+    
+    <p class="qnt_nao_utilizadas"></p>
+
+    <div class="modal_alert">
+        <div class="modal_alert_backdrop"></div>
+        <p class="modal_alert_txt"></p>
+    </div>
+
+    
+    <div class="fundo_modal_config">
+        <div id="modal_config">
+            <header>
+                <span id="btn_close_config">&#10005;</span>
+                <p class="config_titulo"> Configurar Quadro </p>
+            </header>
+            <form class="config_form">
+                <fieldset>
+                    <legend>Tamanho do quadro </legend>
+
+                    <div class="box-num-input tamanho"> 
+                        <label for="altura">Altura:</label>
+                        <input type="text" id="altura" name="altura" value="15"/>
+                        <label for="comprimento">Comprimento:</label>
+                        <input type="text" id="comprimento" name="comprimento" value="15"/>
+                    </div>
+                </fieldset>
+                <fieldset>
+                    <legend>Palavras</legend>
+
+                    <div class="box-num-input"> 
+                        <label for="quant_palavras">Quantidade de palavras (minimo 5):</label>
+                        <input type="text" id="quant_palavras" name="quant_palavras" value="10"/>
+                    </div>
+                    
+                    <div class="box-radio-input"> 
+                        <h2 class="h2_label"> Lista de palavras</h2>
+                        <input type="radio" id="lista_padrao" name="lista_palavra" value="default" checked/>
+                        <label for="lista_padrao">Lista padrão (animais)</label>
+                        <input type="radio" id="lista_custom" name="lista_palavra" value="custom"/>
+                        <label for="lista_custom">Lista Customizada</label>
+                    </div>
+                    
+                    <div class="box-textarea"> 
+                        <p class="textarea_legenda">Insira as palavras que você quer que sejam usadas no caça-palavra, separadas por virgula.</p>
+                        <h2 class="h2_label"> Palavras: </h2>
+                        <textarea id="textarea_palavras" cols="40" row="5" value=""></textarea>
+                    </div>
+                </fieldset>
+                <div class="box-button">
+                    <span class="button text" id="btn-salvar" title="salvar configuração"> Salvar </span>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+<script src="JS/gerar_quadro.js"></script>
+<script src="JS/inserir_palavras.js"></script>
+<script src="JS/selecionar_letras.js"></script>
+<script src="JS/modais.js"></script>
+<script>
+    gerarCacaPalavra()
+</script>
+
+</html>
