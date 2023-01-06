@@ -1,4 +1,4 @@
-import * as exp from "/JS/Gerar_quadro.js" ;
+import * as exp from "./Gerar_quadro.js" ;
 
 export default function inserirPalavras(){
     // variavis para decidir o numero de palavras que serão na horizontal e quantas vão ser na vertical

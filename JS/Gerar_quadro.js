@@ -1,5 +1,5 @@
-import inserirPalavras from "/JS/inserir_palavras.js"
-import selecionarLetras from "/JS/selecionar_letras.js"
+import inserirPalavras from "./inserir_palavras.js"
+import selecionarLetras from "./selecionar_letras.js"
 
 // tamanho do quadro
 export let altura = 15
