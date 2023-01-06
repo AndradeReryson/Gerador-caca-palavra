@@ -1,4 +1,4 @@
-import * as exp from "./Gerar_quadro.js" ;
+import * as exp from "../JS/Gerar_quadro.js" ;
 // script das caixas modais que vão ser mostradas na tela
 
 // icone de configuração, texto descritivo e botão de fechar

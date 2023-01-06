@@ -1,5 +1,5 @@
-import * as exp from "./Gerar_quadro.js" ;
-import callModal from "./modais.js";
+import * as exp from "../JS/Gerar_quadro.js" ;
+import callModal from "../JS/modais.js";
 
 export default function selecionarLetras(){
     const letras_selecionadas = []
