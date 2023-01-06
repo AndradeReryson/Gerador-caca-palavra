@@ -1,5 +1,5 @@
-import inserirPalavras from "../JS/inserir_palavras.js"
-import selecionarLetras from "../JS/selecionar_letras.js"
+import inserirPalavras from "/JS/inserir_palavras.js"
+import selecionarLetras from "/JS/selecionar_letras.js"
 
 // tamanho do quadro
 export let altura = 15
@@ -53,7 +53,7 @@ export const animais = [
 ]
 
 
-export function gerarCacaPalavra(){
+export default function gerarCacaPalavra(){
     palavras_inseridas.length = 0
     palavras_nao_usadas.length = 0
     palavras_encontradas.length = 0
