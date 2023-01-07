@@ -142,8 +142,9 @@ tbody{
 }
 
 td{
-    width: 2vw;
+    width: 1vw;
     height: 2vw;
+    padding: 0 0.5vw 0 0.5vw; 
     text-align: center;
 }
 
@@ -348,3 +349,87 @@ li.encontrou{
     font-size: 1.2vw;
 }
 
+
+@media screen
+and (max-width: 500px){
+    header{
+        padding: 3vw 5vw 3vw 5vw;
+    }
+
+    h1{
+        font-size: 4vw;
+    }
+
+    .header_config_quadro,
+    .modal_alert_backdrop{
+        display: none;
+    }
+
+    .btn-criar-quadro{
+        font-size: 3vw;
+        padding: 2vw 3vw;
+    }
+
+    .btn-criar-quadro:hover{
+        
+    }
+    /* Caixa da palavra cruzada */
+
+    main{
+        flex-direction: column-reverse;
+    }
+
+    .caixa{
+        padding: 5vw 0 0 0;
+        width: 100%;
+        height: auto;
+    }
+
+    .palavras{
+        padding: 0;
+        width: 100%;
+        height: auto;
+    }
+
+    .palavras h2{
+        text-align: center;
+        font-size: 3.8vw;
+    }
+
+    p.qnt_nao_utilizadas{
+        font-size: 2.3vw;
+    }
+
+    td{
+        height: 6vw;
+        width: 2.50vw;
+    }
+
+    .letra{
+        font-size: 4vw;
+        padding: 0 1.25vw 0 1.25vw;
+    }
+
+    ul{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        padding: 0 2vw;
+        margin: 0;
+    }
+
+    ul li{
+        display: block;
+        padding: 1vw;
+        font-size: 3vw;
+    }
+
+    /* alerta modal */
+
+    .modal_alert .modal_alert_txt{
+        width: 50%;
+        height: auto;
+        font-size: 3vw;
+    }
+    
+}

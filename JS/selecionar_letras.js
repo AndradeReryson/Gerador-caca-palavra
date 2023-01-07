@@ -62,6 +62,76 @@ export default function selecionarLetras(){
                 item.style.outline = "none" // tira a borda preta da letra quando você tira o mouse dela
             }
         })
+
+
+        /* eventlisteners pra mobile */
+
+        const letrasTocadas = [] // vai servir pra controlar quais letras o touchmove ja passou por cima uma vez, pois cada movimento que voce faz sobre a letra ativa o evento, então normalmente ao selecionar um letra e passar o mouse por cima, a letra seria lida 4 vezes ao invés de 1 só
+
+        item.addEventListener('touchstart', function(){
+            selecionando = true
+            item.style.outline = "none"
+            /* aplica o efeito do mouseover no primeiro elemento que voce clicar */
+            /* sem isso, a letra que voce clica primeiro não é selecionada, só as proximas após apertar*/
+            if(item.style.backgroundColor == "beige"){
+                item.style.backgroundColor = "lightblue"
+                //item.closest("td").style.backgroundColor = "lightblue"
+            } else if (item.style.backgroundColor == "lightgreen"){
+                item.style.outline = "1px solid blue"
+            }
+            // envia as informações da letra no quadro, sendo elas [letra, linha, coluna], para o vetor de letras_selecionadas
+            letras_selecionadas.push([item.textContent,item.getAttribute("data-y"),item.getAttribute("data-x")])
+            letrasTocadas.push(item)
+        })
+
+        item.addEventListener('touchmove', function(){
+            let element = document.elementFromPoint(event.touches[0].clientX, event.touches[0].clientY);
+            //console.log(element)
+
+            if(!(letrasTocadas.includes(element))){
+                letrasTocadas.push(element)
+                if(selecionando == true){
+                    if(element.style.backgroundColor == "beige"){
+                        element.style.backgroundColor = "lightblue"
+                        //item.closest("td").style.backgroundColor = "lightblue"
+                    } else if (element.style.backgroundColor == "lightgreen") {
+                        element.style.outline = "1px solid blue"
+                    }
+                    letras_selecionadas.push([element.textContent,element.getAttribute("data-y"),element.getAttribute("data-x")])
+                } 
+            } 
+        })
+
+        item.addEventListener('touchend', function(){
+            selecionando = false
+            let acertou = conferirPalavra() // pede pra conferir a palavra selecionada
+
+            if(acertou[0] == true){
+                marcarAcerto(acertou[1]) // manda a palavra para ser marcada no quadro
+                letras_selecionadas.length = 0 // zera as letras selecionadas
+                letrasTocadas.length = 0
+            } else {
+                letrasTocadas.length = 0
+                letras_selecionadas.length = 0 // zera as letras selecionadas
+                limparSelecao() // limpa a seleção
+            }
+        })
+
+        item.addEventListener('touchcancel', function(){
+            selecionando = false
+            let acertou = conferirPalavra() // pede pra conferir a palavra selecionada
+
+            if(acertou[0] == true){
+                marcarAcerto(acertou[1]) // manda a palavra para ser marcada no quadro
+                letras_selecionadas.length = 0 // zera as letras selecionadas
+                letrasTocadas.length = 0
+            } else {
+                letrasTocadas.length = 0
+                letras_selecionadas.length = 0 // zera as letras selecionadas
+                limparSelecao() // limpa a seleção
+            }
+        })
+
     })
 
     // função que devolve para as letras a cor de fundo normal, com exceção de quando a palavra foi marcada corretamente
@@ -99,10 +169,15 @@ export default function selecionarLetras(){
 
             palavra_selecionada = palavra_selecionada+letra // monta a palavra juntando as letras
 
-            if(!(letra == exp.quadro_usado[letra_y][letra_x])){
-                // confere se a letra selecionada bate com a letra que está no quadro_usado. 
-                // como a seleção de letras é livre, o usuário não é obrigado a selecionar letras em linha reta, portanto, ele pode montar a palavra usando qualquer letra que forme a palavra
-                // para evitar isso, comparamos a letra selecionada com a que está presente no quadro_usado, pois nesta matriz só existem as palavras que foram inseridas, logo, quando o usuario seleciona uma letra errada (mesmo fazendo sentido) no quadro, no quadro_usado essa letra será um valor "null"
+            // try catch pro evento touchmove, ja que ele pega o elemento baseado nas coordenadas x e y dele, o touchmove tambem pode pegar elementos fora do quadro, e caso isso aconteça o catch vai evitar o erro 
+            try{
+                if(!(letra == exp.quadro_usado[letra_y][letra_x])){
+                    // confere se a letra selecionada bate com a letra que está no quadro_usado. 
+                    // como a seleção de letras é livre, o usuário não é obrigado a selecionar letras em linha reta, portanto, ele pode montar a palavra usando qualquer letra que forme a palavra
+                    // para evitar isso, comparamos a letra selecionada com a que está presente no quadro_usado, pois nesta matriz só existem as palavras que foram inseridas, logo, quando o usuario seleciona uma letra errada (mesmo fazendo sentido) no quadro, no quadro_usado essa letra será um valor "null"
+                    checagem_letra = false
+                }
+            } catch {
                 checagem_letra = false
             }
         }
