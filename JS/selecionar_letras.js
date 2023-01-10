@@ -64,74 +64,75 @@ export default function selecionarLetras(){
         })
 
 
+        if( /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent) ) {
         /* eventlisteners pra mobile */
 
-        const letrasTocadas = [] // vai servir pra controlar quais letras o touchmove ja passou por cima uma vez, pois cada movimento que voce faz sobre a letra ativa o evento, então normalmente ao selecionar um letra e passar o mouse por cima, a letra seria lida 4 vezes ao invés de 1 só
+            const letrasTocadas = [] // vai servir pra controlar quais letras o touchmove ja passou por cima uma vez, pois cada movimento que voce faz sobre a letra ativa o evento, então normalmente ao selecionar um letra e passar o mouse por cima, a letra seria lida 4 vezes ao invés de 1 só
 
-        item.addEventListener('touchstart', function(){
-            selecionando = true
-            item.style.outline = "none"
-            /* aplica o efeito do mouseover no primeiro elemento que voce clicar */
-            /* sem isso, a letra que voce clica primeiro não é selecionada, só as proximas após apertar*/
-            if(item.style.backgroundColor == "beige"){
-                item.style.backgroundColor = "lightblue"
-                //item.closest("td").style.backgroundColor = "lightblue"
-            } else if (item.style.backgroundColor == "lightgreen"){
-                item.style.outline = "1px solid blue"
-            }
-            // envia as informações da letra no quadro, sendo elas [letra, linha, coluna], para o vetor de letras_selecionadas
-            letras_selecionadas.push([item.textContent,item.getAttribute("data-y"),item.getAttribute("data-x")])
-            letrasTocadas.push(item)
-        })
+            item.addEventListener('touchstart', function(){
+                selecionando = true
+                item.style.outline = "none"
+                /* aplica o efeito do mouseover no primeiro elemento que voce clicar */
+                /* sem isso, a letra que voce clica primeiro não é selecionada, só as proximas após apertar*/
+                if(item.style.backgroundColor == "beige"){
+                    item.style.backgroundColor = "lightblue"
+                    //item.closest("td").style.backgroundColor = "lightblue"
+                } else if (item.style.backgroundColor == "lightgreen"){
+                    item.style.outline = "1px solid blue"
+                }
+                // envia as informações da letra no quadro, sendo elas [letra, linha, coluna], para o vetor de letras_selecionadas
+                letras_selecionadas.push([item.textContent,item.getAttribute("data-y"),item.getAttribute("data-x")])
+                letrasTocadas.push(item)
+            })
 
-        item.addEventListener('touchmove', function(){
-            let element = document.elementFromPoint(event.touches[0].clientX, event.touches[0].clientY);
-            //console.log(element)
+            item.addEventListener('touchmove', function(){
+                let element = document.elementFromPoint(event.touches[0].clientX, event.touches[0].clientY);
+                //console.log(element)
 
-            if(!(letrasTocadas.includes(element))){
-                letrasTocadas.push(element)
-                if(selecionando == true){
-                    if(element.style.backgroundColor == "beige"){
-                        element.style.backgroundColor = "lightblue"
-                        //item.closest("td").style.backgroundColor = "lightblue"
-                    } else if (element.style.backgroundColor == "lightgreen") {
-                        element.style.outline = "1px solid blue"
-                    }
-                    letras_selecionadas.push([element.textContent,element.getAttribute("data-y"),element.getAttribute("data-x")])
+                if(!(letrasTocadas.includes(element))){
+                    letrasTocadas.push(element)
+                    if(selecionando == true){
+                        if(element.style.backgroundColor == "beige"){
+                            element.style.backgroundColor = "lightblue"
+                            //item.closest("td").style.backgroundColor = "lightblue"
+                        } else if (element.style.backgroundColor == "lightgreen") {
+                            element.style.outline = "1px solid blue"
+                        }
+                        letras_selecionadas.push([element.textContent,element.getAttribute("data-y"),element.getAttribute("data-x")])
+                    } 
                 } 
-            } 
-        })
+            })
 
-        item.addEventListener('touchend', function(){
-            selecionando = false
-            let acertou = conferirPalavra() // pede pra conferir a palavra selecionada
+            item.addEventListener('touchend', function(){
+                selecionando = false
+                let acertou = conferirPalavra() // pede pra conferir a palavra selecionada
 
-            if(acertou[0] == true){
-                marcarAcerto(acertou[1]) // manda a palavra para ser marcada no quadro
-                letras_selecionadas.length = 0 // zera as letras selecionadas
-                letrasTocadas.length = 0
-            } else {
-                letrasTocadas.length = 0
-                letras_selecionadas.length = 0 // zera as letras selecionadas
-                limparSelecao() // limpa a seleção
-            }
-        })
+                if(acertou[0] == true){
+                    marcarAcerto(acertou[1]) // manda a palavra para ser marcada no quadro
+                    letras_selecionadas.length = 0 // zera as letras selecionadas
+                    letrasTocadas.length = 0
+                } else {
+                    letrasTocadas.length = 0
+                    letras_selecionadas.length = 0 // zera as letras selecionadas
+                    limparSelecao() // limpa a seleção
+                }
+            })
 
-        item.addEventListener('touchcancel', function(){
-            selecionando = false
-            let acertou = conferirPalavra() // pede pra conferir a palavra selecionada
+            item.addEventListener('touchcancel', function(){
+                selecionando = false
+                let acertou = conferirPalavra() // pede pra conferir a palavra selecionada
 
-            if(acertou[0] == true){
-                marcarAcerto(acertou[1]) // manda a palavra para ser marcada no quadro
-                letras_selecionadas.length = 0 // zera as letras selecionadas
-                letrasTocadas.length = 0
-            } else {
-                letrasTocadas.length = 0
-                letras_selecionadas.length = 0 // zera as letras selecionadas
-                limparSelecao() // limpa a seleção
-            }
-        })
-
+                if(acertou[0] == true){
+                    marcarAcerto(acertou[1]) // manda a palavra para ser marcada no quadro
+                    letras_selecionadas.length = 0 // zera as letras selecionadas
+                    letrasTocadas.length = 0
+                } else {
+                    letrasTocadas.length = 0
+                    letras_selecionadas.length = 0 // zera as letras selecionadas
+                    limparSelecao() // limpa a seleção
+                }
+            })
+        }
     })
 
     // função que devolve para as letras a cor de fundo normal, com exceção de quando a palavra foi marcada corretamente
