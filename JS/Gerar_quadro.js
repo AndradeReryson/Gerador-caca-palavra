@@ -8,6 +8,7 @@ export let quant_palavras = 10
 
 if( /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent) ) {
     comprimento = 13
+    altura = 14
 }
 
 // essa variavel é modificada pelo "modais.js" o qual manda o valor 
